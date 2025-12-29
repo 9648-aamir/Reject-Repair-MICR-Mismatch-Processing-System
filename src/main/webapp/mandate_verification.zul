@@ -1,0 +1,280 @@
+<?page title="Mandate Verification" contentType="text/html;charset=UTF-8"?>
+<?init class="com.imageinfo.maincontroller.LogOut"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+
+	<style>
+		.z-window-content { border: 0px solid #CFCFCF; margin: 0px;
+		padding: 0px; background: #FFFFFF; overflow: hidden; zoom: 1; }
+
+		.z-row-content{ padding: 0px 5px; }
+		
+		.text{
+		    height:80%;
+		}
+	</style>
+
+	<window border="normal"
+		apply="com.imageinfo.mandateverification.controller.MandateController"
+		width="100%" height="100%" style="padding:0px;">
+		<borderlayout id="processSelection" height="100%"
+			width="100%">
+
+
+			<center>
+				<vlayout>
+					<hlayout width="100%" height="100%"
+						style="display:flex; justify-content:center;">
+						<grid width="450px">
+							<rows>
+								<row style="background:#FFFFFF;">
+									<label
+										value="Corporate Utility Code" />
+									<combobox id="utilityCode"
+										autodrop="true" width="200px" readonly="true" />
+								</row>
+								<row style="background:#FFFFFF;">
+									<label value="Scan Date" />
+									<combobox id="scanDate"
+										autodrop="true" width="200px" readonly="true" />
+								</row>
+								<row style="background:#FFFFFF;">
+									<label value="Mandate Type" />
+									<combobox id="mandateType"
+										autodrop="true" width="200px" readonly="true" />
+								</row>
+								<row style="background:#FFFFFF;">
+									<label value="Action Type" />
+									<combobox id="actiontype"
+										autodrop="true" width="200px" readonly="true" />
+								</row>
+							</rows>
+						</grid>
+					</hlayout>
+					<hlayout
+						style="display:flex; justify-content:flex-end; max-width:67.5%; min-width:40%">
+						<button id="fetchBtn" label="Fetch"
+							width="100px" />
+					</hlayout>
+				</vlayout>
+			</center>
+		</borderlayout>
+
+
+
+		<vlayout id="batchList">
+			<grid id="batchGrid" mold="paging" pageSize="10">
+				<columns>
+					<column label="Scan Date" />
+					<column label="Batch Number" />
+					<column label="Batch Count" />
+					<column label="Pending Count" />
+					<column label="Processed Count" />
+					<column label="Status" />
+					<column label="User ID" />
+				</columns>
+				<rows id="batchRows" style="cursor:pointer;" />
+			</grid>
+			<hlayout spacing="8px">
+				<button id="backBtn1" label="Back" />
+			</hlayout>
+		</vlayout>
+
+
+		<borderlayout id="mandate">
+			<east width="470px" autoscroll="true">
+				<grid width="100%">
+					<rows>
+						<row>
+							<label value="Mandate ID" />
+							<textbox id="mandateId" width="150px"
+								readonly="true" />
+						</row>
+						<row>
+							<label value="Scan Date" />
+							<datebox id="scanDatem" width="150px"
+								readonly="true" format="dd-MM-yyyy" />
+						</row>
+						<row>
+							<label value="Utility Code" />
+							<combobox id="utilityCodem" autodrop="true"
+								width="150px" readonly="true" />
+						</row>
+						<row>
+							<label value="Utility Description" />
+							<textbox id="utilityDescription"
+								width="170px" readonly="true" />
+						</row>
+						<row>
+							<label value="Creditor Name" />
+							<textbox id="creditorName" width="150px" readonly="true"/>
+						</row>
+						<row>
+							<label value="Category Code" />
+							<textbox id="categoryCode" width="150px"
+								readonly="true" />
+						</row>
+						<row>
+							<label value="Mandate Date" />
+							<datebox id="mandateDate" width="150px"
+								readonly="true" format="dd-MM-yyyy" />
+						</row>
+						<row>
+							<label value="Debtor A/c No" />
+							<textbox id="debtorAccountNumber"
+								readonly="true" width="150px" maxlength="35"/>
+						</row>
+						<row>
+							<label value="Debit Account Type" />
+							<combobox id="debtorAccountType"
+								width="150px" readonly="true">
+								<comboitem label="Savings" />
+								<comboitem label="Current" />
+								<comboitem label="NRE" />
+								<comboitem label="NRO" />
+								<comboitem label="CC" />
+								<comboitem label="OD" />
+							</combobox>
+						</row>
+						<row>
+							<label value="Debtor IFSC/MICR Code" />
+							<textbox id="debtorIfscMicr" readonly="true"
+								width="150px" maxlength="11" />
+						</row>
+						<row>
+							<label value="Debtor Bank Name" />
+							<textbox id="debtorBankName" width="150px"
+								readonly="true" />
+						</row>
+						<row>
+							<label value="Debtor Bank Code" />
+							<textbox id="debtorBankCode" width="150px"
+								readonly="true" />
+						</row>
+						<row>
+							<label value="Debit Type" />
+							<radiogroup id="debitType">
+								<radio label="Fixed" value="Fixed" />
+								<radio label="Maximum" value="Maximum" />
+							</radiogroup>
+						</row>
+						<row>
+							<label value="Amount" />
+							<doublebox id="amount" width="150px"
+								readonly="true" maxlength="13" />
+						</row>
+						<row>
+							<label value="Reference 1" />
+							<textbox id="reference1" readonly="true"
+								width="150px" maxlength="35" />
+						</row>
+						<row>
+							<label value="Reference 2" />
+							<textbox id="reference2" readonly="true"
+								width="150px" maxlength="35" />
+						</row>
+						<row>
+							<label value="Frequency" />
+							<combobox id="frequency" width="150px"
+								readonly="true">
+								<comboitem label="Daily" />
+								<comboitem label="Weekly" />
+								<comboitem label="Monthly" />
+								<comboitem label="Yearly" />
+							</combobox>
+						</row>
+						<row>
+							<label value="Start Date" />
+							<datebox id="startDate" readonly="true"
+								width="150px" format="dd-MM-yyyy" />
+						</row>
+						<row>
+							<label value="End Date" />
+							<datebox id="endDate" readonly="true"
+								width="150px" format="dd-MM-yyyy" />
+						</row>
+						<row>
+							<label value="Debtor Name" />
+							<textbox id="debtorName" readonly="true"
+								width="150px" maxlength="40" />
+						</row>
+						<row>
+							<label value="Phone Number" />
+							<textbox id="phoneNumber" readonly="true"
+								width="150px" maxlength="11" />
+						</row>
+						<row>
+							<label value="Debtor Email" />
+							<textbox id="email" width="150px"
+								maxlength="50"
+								constraint="/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/ : Please enter a valid email"
+								readonly="true" />
+						</row>
+						<row>
+							<label value="Dup Status" />
+							<textbox id="dupStatus" width="150px"
+								readonly="true" />
+						</row>
+						<row>
+							<label value="Amend Code" />
+							<textbox id="amendCode" width="150px"
+								readonly="true" />
+						</row>
+					</rows>
+				</grid>
+			</east>
+
+			<west width="50px" splittable="false" collapsible="false">
+				<vlayout spacing="6px"
+					style="background:#f0f5fa; padding:5px;">
+					<button label="+" id="zoomInBtn" width="40px"
+						height="30px" style="font-weight:bold; font-size:18px;" />
+					<button label="-" id="zoomOutBtn" width="40px"
+						height="30px" style="font-weight:bold; font-size:18px;" />
+					<button label="⟳" id="rotateRightBtn" width="40px"
+						height="30px" />
+					<button label="🔄" id="resetBtn" width="40px"
+						height="30px" style="font-size:18px;" />
+					<button label="↻" id="rotateLeftBtn" width="40px"
+						height="30px" />
+					
+					<button label="←" id="backBtn" width="40px"
+						height="30px" style="font-weight:bold; font-size:18px;" />
+				</vlayout>
+			</west>
+
+			<center>
+				<vlayout width="100%" height="100%" spacing="10px"
+					style="padding:10px;">
+					<panel border="normal" height="300px"
+						style="background:#ffffff;">
+						<panelchildren
+							style=" display: flex; justify-content: center; align-items: center;">
+							<div id="imgContainer" sclass="image-box">
+								<image id="myImage" width="700px"
+									style=" user-select: none;-webkit-user-drag: none; -khtml-user-drag: none;  -moz-user-drag: none; -o-user-drag: none; user-drag: none;" />
+							</div>
+						</panelchildren>
+					</panel>
+				</vlayout>
+			</center>
+
+			<south height="25px">
+				<hbox spacing="20px"
+					style="display: flex; justify-content: center; align-items: center;">
+					<label value="Remarks" />
+					<combobox id="remarksDropdown" readonly="true">
+						<comboitem label="Duplicate Entry"
+							value="Duplicate Entry" />
+						<comboitem label="Missing Information"
+							value="Missing Information" />
+						<comboitem label="Invalid Account Number"
+							value="Invalid Account Number" />
+					</combobox>
+					<button id="sendBtn" label="Send Back" />
+					<button id="acceptBtn" label="Accept" />
+
+				</hbox>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

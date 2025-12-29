@@ -1,0 +1,241 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?init class="com.imageinfo.maincontroller.LogOut"?>
+<zk>
+	<style>
+		.z-window-content { border: 0px solid #CFCFCF; margin: 0px;
+		padding: 0px; background: #FFFFFF; overflow: hidden; zoom: 1; }
+
+	</style>
+	<window border="normal" width="100%" height="100%"
+		apply="com.imageinfo.lbnrrbnl.controller.InstrumentController">
+
+		<borderlayout id="processSelection" height="100%"
+			width="100%">
+			<center>
+				<vlayout
+					style="display:flex; justify-content:center;">
+					<vbox>
+						<hbox spacing="8px">
+							<label value="Clearing Type:" />
+							<combobox id="clearingTypeCmb"
+								autodrop="true" readonly="true">
+								<comboitem label="01-CTS" />
+								<comboitem label="99-SPECIAL" />
+							</combobox>
+						</hbox>
+						<hbox
+							style="display:flex; justify-content:flex-end; width:100%;">
+							<button id="processBtn" label="Process" />
+						</hbox>
+					</vbox>
+				</vlayout>
+			</center>
+		</borderlayout>
+
+		<vlayout id="batchList" style="padding:10px" spacing="8px">
+
+			<grid width="100%">
+				<columns>
+					<column label="Batch Number" />
+					<column label="Count" />
+					<column label="Amount" />
+					<column label="Pending" />
+					<column label="Processed" />
+					<column label="Status" />
+					<column label="User ID" />
+				</columns>
+				<rows id="batchRows" />
+			</grid>
+			<hlayout spacing="8px">
+				<button id="backBtn1" label="Back" />
+			</hlayout>
+		</vlayout>
+
+		<borderlayout id="mandate">
+			<center>
+				<borderlayout width="100%" height="30%">
+
+					<east width="270px">
+						<grid width="100%">
+							<columns>
+								<column label="Name" width="150px"
+									style="font-weight:bold; text-align:center;" />
+								<column label="Value"
+									style="font-weight:bold; text-align:center;" />
+							</columns>
+							<rows>
+								<row>
+									<label value="Matched" />
+									<label id="lblMatched" value="0"
+										style="color:blue;" />
+								</row>
+								<row>
+									<label value="Pending" />
+									<label id="lblProcessedPending"
+										style="color:red; font-weight:bold;" />
+								</row>
+								<row>
+									<label value="RENL" />
+									<label id="lblRENL" value="0" />
+								</row>
+								<row>
+									<label value="Deleted" />
+									<label id="lblDeleted" />
+								</row>
+								<row>
+									<label value="UBNR" />
+									<label id="lblUBNR" value="0" />
+								</row>
+								<row>
+									<label value="IQA" />
+									<label id="lblIQA" value="" />
+								</row>
+							</rows>
+						</grid>
+					</east>
+
+
+					<west width="50px" splittable="false"
+						collapsible="false">
+						<vlayout spacing="6px"
+							style="background:#f0f5fa; padding:5px;">
+							<button label="+" id="zoomInBtn"
+								width="40px" height="30px"
+								style="font-weight:bold; font-size:18px;" />
+							<button label="-" id="zoomOutBtn"
+								width="40px" height="30px"
+								style="font-weight:bold; font-size:18px;" />
+							<button label="⟳" id="rotateRightBtn"
+								width="40px" height="30px" />
+							<button label="🔄" id="resetBtn"
+								width="40px" height="30px" style="font-size:18px;" />
+							<button label="↻" id="rotateLeftBtn"
+								width="40px" height="30px" />
+							<button label="→" id="nextBtn" width="40px"
+								height="30px" style="font-weight:bold; font-size:18px;" />
+							<button label="←" width="40px" height="30px"
+								style="font-weight:bold; font-size:18px;"
+								onClick="batchList.setVisible(true); processSelection.setVisible(false); mandate.setVisible(false)" />
+						</vlayout>
+					</west>
+
+					<center>
+						<vlayout width="100%" height="100%"
+							spacing="10px" style="padding:10px;">
+							<panel border="normal" height="270px"
+								style="background:#ffffff;">
+								<panelchildren
+									style="display:flex; justify-content:center; align-items:center;">
+									<div id="imgContainer"
+										sclass="image-box">
+										<image id="myImage"
+											src="/images/sample.webp"
+											style="user-select:none; -webkit-user-drag:none; -khtml-user-drag:none; -moz-user-drag:none; -o-user-drag:none; user-drag:none;" />
+									</div>
+								</panelchildren>
+							</panel>
+						</vlayout>
+					</center>
+
+				</borderlayout>
+			</center>
+
+			<south height="250px">
+				<borderlayout>
+
+					<east width="40%" splittable="true">
+						<listbox id="instrumentList" width="600px"
+							height="300px" mold="paging" pageSize="5">
+							<listhead>
+								<listheader label="Cheque No"
+									width="70px" />
+								<listheader label="City" width="50px" />
+								<listheader label="Bank" width="50px" />
+								<listheader label="Branch" width="50px" />
+								<listheader label="Base No"
+									width="60px" />
+								<listheader label="TC" width="40px" />
+								<listheader label="Amount" width="60px"
+									align="right" />
+								<listheader label="Benef. Name"
+									width="1200px" />
+							</listhead>
+						</listbox>
+					</east>
+
+					<west width="754px">
+						<groupbox mold="3d" closable="false"
+							width="754px" style="background:#eaf2f9;">
+							<caption label="Processed Data" />
+							<grid width="100%">
+								<rows style="text-align: center;">
+									<row>
+
+										<intbox id="chequeNo"
+											width="90px" maxlength="6" />
+										<intbox id="cityCode"
+											width="70px" maxlength="3" />
+										<intbox id="bankCode"
+											width="90px" maxlength="3" />
+										<intbox id="branchCode"
+											width="90px" maxlength="3" />
+										<intbox id="baseNumber"
+											width="90px" maxlength="6" />
+										<intbox id="transactionCode"
+											width="50px" maxlength="2" />
+									</row>
+
+									<row>
+
+
+										<label value="Cheque No."
+											width="90px" style="text-align:center;" />
+										<label value="City" width="70px"
+											style="text-align:center;" />
+										<label value="Bank" width="90px"
+											style="text-align:center;" />
+										<label value="Branch"
+											width="90px" style="text-align:center;" />
+										<label value="Base No."
+											width="90px" style="text-align:center;" />
+										<label value="TC" width="50px"
+											style="text-align:center;" />
+									</row>
+								</rows>
+							</grid>
+						</groupbox>
+					</west>
+					<south height="40px">
+						<hbox spacing="20px"
+							style="display: flex; justify-content: center; align-items: center;">
+							<button id="backBtn" label="Back" />
+							<button id="delete" label="Delete" />
+							<label value="Deletion Remarks" />
+							<combobox id="deletionRemark" width="200px"
+								placeholder="Select reason">
+								<comboitem label="Signature mismatch"
+									value="Signature mismatch" />
+								<comboitem label="Amount mismatch"
+									value="Amount mismatch" />
+								<comboitem label="Stale cheque"
+									value="Stale cheque" />
+								<comboitem label="Post-dated cheque"
+									value="Post-dated cheque" />
+								<comboitem label="Wrong branch"
+									value="Wrong branch" />
+								<comboitem label="Others"
+									value="Others" />
+							</combobox>
+
+
+							<label value="Remarks" />
+							<textbox id="remarks" disabled="true" />
+
+							<button id="matchBtn" label="Match" />
+						</hbox>
+					</south>
+				</borderlayout>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

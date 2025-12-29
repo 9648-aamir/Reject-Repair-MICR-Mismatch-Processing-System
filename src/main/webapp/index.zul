@@ -1,0 +1,72 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<?page title="Process Selection" contentType="text/html;charset=UTF-8"?>
+	<style>
+		.z-window-content { border: 0px solid #CFCFCF; margin: 0px;
+		padding: 0px; background: #FFFFFF; overflow: hidden; zoom: 1; }
+
+		.z-row-content{ padding: 1.4px 5px; }
+		
+		
+    .mandateEntry {
+        transition: color 0.3s ease;
+    }
+    .mandateEntry:hover {
+        color: #ff6600;
+        font-weight: bold;
+    }
+    
+    .z-center-body{
+    display:flex; align-items:center; justify-content:center; 
+}
+    
+
+	</style>
+
+	<window border="normal" width="100%" height="100%"
+		style="padding:0px;"
+		apply="com.imageinfo.maincontroller.LoginController" >
+
+		<borderlayout height="95%" width="100%" id="loginPage">
+			<north style="background-color:#D9E5EF;" height="30px">
+				<label value="Express Clear" />
+			</north>
+
+			<center >
+
+				<vlayout>
+					<hlayout width="100%" height="100%"
+						style="display:flex; align-items:center; justify-content:center; ">
+						<grid width="380px">
+						    <columns>
+						      <column label="Login"/>
+						    </columns>
+							<rows>
+								<row style="background:#FFFFFF;">
+									<label value="User Name" />
+									<textbox id="username"
+										placeholder="Enter the user name" width="80%" onOK="password.setFocus(true)"/>
+								</row>
+
+								<row style="background:#FFFFFF;">
+									<label value="Password" />
+									
+									<textbox id="password"
+										placeholder="Enter the password" width="80%" type="password"/>
+								</row>
+
+							</rows>
+						</grid>
+					</hlayout>
+					<hlayout
+						style="display:flex; justify-content:flex-end; max-width:64.5%; min-width:40%">
+						<button id="login" label="login" width="100px" />
+					</hlayout>
+				</vlayout>
+			</center>
+
+		</borderlayout>
+
+	</window>
+
+</zk>
